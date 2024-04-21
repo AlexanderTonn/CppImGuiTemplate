@@ -67,6 +67,10 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/render.cpp
     src/render.hpp
+    src/guiStrings.hpp
+    src/guiStrings.cpp
+    src/util.hpp
+    src/util.cpp
 )
 
 add_compile_definitions(NOMINMAX)

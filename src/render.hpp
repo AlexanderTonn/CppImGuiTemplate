@@ -5,6 +5,9 @@
 #include <string_view>
 #include <array>
 
+#include "guiStrings.hpp"
+#include "util.hpp"
+
 #ifdef _WIN32
 #include <Windows.h>
 #endif
@@ -18,14 +21,12 @@ private:
     constexpr static auto window_size = ImVec2(1280.0F, 720.0F);
     constexpr static auto window_pos = ImVec2(0.0F, 0.0F);
 
-    struct guiLabels
-    {
-        std::array<std::string, 4> menu = {"File", "Edit", "Help", "Exit"};
-        std::array<std::string, 3> file = {"New", "Open", "Save"};
-    };
-    guiLabels labels;
+    size_t szLanguageSelection = 0; // 0 = ENG, 1 = GER
 
     auto drawMenu() -> void;
+    auto init() -> void;
+
+    util _GUIFunc;
 
 public:
     void Draw(std::string_view label);

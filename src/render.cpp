@@ -8,6 +8,7 @@
 
 #include "render.hpp"
 
+
 /**
  * @brief Main Drawfunction for ImGui
  *
@@ -18,6 +19,8 @@ void WindowClass::Draw(std::string_view label)
     // ##########
     // Backend stuff
     // ##########
+
+    init();
 
     // ##########
     // Frontend stuff
@@ -45,47 +48,55 @@ auto render(WindowClass &window_obj) -> void
 
 auto WindowClass::drawMenu() -> void
 {
-    if(ImGui::BeginMenuBar())
+    if (ImGui::BeginMenuBar())
     {
         // FILE MENU
-        if (ImGui::BeginMenu(labels.menu[0].c_str()))
+        if (ImGui::BeginMenu(_UIStr.menuBtns[szLanguageSelection].menuBar.at(0).c_str()))
         {
-            if (ImGui::MenuItem(labels.file[0].c_str(), "Ctrl+N"))
+            if (ImGui::MenuItem(_UIStr.menuBtns[szLanguageSelection].fileOptions.at(0).c_str(), "Ctrl+N"))
             {
                 std::cout << "New" << std::endl;
             }
-            if (ImGui::MenuItem(labels.file[1].c_str(), "Ctrl+O"))
+            if (ImGui::MenuItem(_UIStr.menuBtns[szLanguageSelection].fileOptions.at(1).c_str(), "Ctrl+O"))
             {
                 std::cout << "Open" << std::endl;
             }
-            if (ImGui::MenuItem(labels.file[2].c_str(), "Ctrl+S"))
+            if (ImGui::MenuItem(_UIStr.menuBtns[szLanguageSelection].fileOptions.at(2).c_str(), "Ctrl+S"))
             {
                 std::cout << "Save" << std::endl;
             }
-            if (ImGui::MenuItem(labels.file[2].c_str(), "Ctrl+Shift+S"))
+            if (ImGui::MenuItem(_UIStr.menuBtns[szLanguageSelection].fileOptions.at(3).c_str(), "Ctrl+Shift+S"))
             {
                 std::cout << "Save As.." << std::endl;
-            }
-            ImGui::Separator();
-            if (ImGui::MenuItem(labels.menu[3].c_str(), "Alt+F4"))
-            {
-                std::cout << "Exit" << std::endl;
             }
             ImGui::EndMenu();
         }
         // EDIT MENU
-        if (ImGui::BeginMenu(labels.menu[1].c_str()))
+        if (ImGui::BeginMenu(_UIStr.menuBtns[szLanguageSelection].menuBar.at(1).c_str()))
         {
             ImGui::EndMenu();
         }
         // HELP MENU
-        if (ImGui::BeginMenu(labels.menu[2].c_str()))
+        if (ImGui::BeginMenu(_UIStr.menuBtns[szLanguageSelection].menuBar.at(2).c_str()))
         {
+            if (ImGui::MenuItem(_UIStr.menuBtns[szLanguageSelection].helpOptions.at(0).c_str()))
+            {
+                std::cout << "About" << std::endl;
+            }
+            ImGui::Text(_UIStr.menuBtns[szLanguageSelection].helpOptions.at(1).c_str());
+            ImGui::SameLine();
+            _GUIFunc.drawComboBox(_UIStr.menuBtns[szLanguageSelection].helpOptions.at(1),
+                                  _UIStr.cbEntries[szLanguageSelection].languages,
+                                  szLanguageSelection,
+                                  false);
             ImGui::EndMenu();
         }
 
         ImGui::EndMenuBar();
     }
+}
 
-
+auto WindowClass::init() -> void
+{
+    _UIStr.init();
 }
